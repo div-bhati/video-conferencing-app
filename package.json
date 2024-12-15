@@ -3,12 +3,24 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-     "start": "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
-     "express": "^4.18.2",
-     "ejs": "^3.1.9",
-     "socket.io": "^4.7.0",
-     "peerjs": "^1.3.1"
-  }
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "peer": "^1.0.2",
+    "peerjs": "^1.3.1",
+    "socket.io": "^4.8.1"
+  },
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/div-bhati/video-conferencing-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/div-bhati/video-conferencing-app/issues"
+  },
+  "homepage": "https://github.com/div-bhati/video-conferencing-app#readme"
 }
