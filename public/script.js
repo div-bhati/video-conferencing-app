@@ -171,3 +171,15 @@ function stopScreenSharing() {
       screenStream.getTracks().forEach(track => track.stop());
    }
 }
+
+socket.on("screen-shared", (data) => {
+  console.log(`${data.userId} is sharing their screen.`);
+  // Display the shared screen (adjust the video element as needed)
+  const remoteVideo = document.getElementById("remoteVideo"); // Replace with your video element ID
+  remoteVideo.srcObject = data.screenStream;
+});
+
+socket.on("screen-share-stopped", (data) => {
+  console.log(`${data.userId} stopped sharing their screen.`);
+  // Handle stopping of the shared screen (e.g., revert to their webcam)
+});
