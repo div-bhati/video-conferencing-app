@@ -133,6 +133,7 @@ const setPlayVideo = () => {
   document.querySelector('.main__video_button').innerHTML = html;
 }
 
+
 let screenStream;
 
 async function shareScreen() {
@@ -143,16 +144,22 @@ async function shareScreen() {
          audio: true,
       });
 
-      // Replace the video track in the peer connection
+      
       const videoTrack = screenStream.getVideoTracks()[0];
-      const sender = currentPeer.getSenders().find(s => s.track.kind === videoTrack.kind);
-      sender.replaceTrack(videoTrack);
+      const senders = myPeer.connection.getSenders();
+      const sender = senders.find(s => s.track.kind === 'video');
+      if (sender) {
+         sender.replaceTrack(videoTrack);
+      }
 
-      // Display the shared screen locally
+    
       addVideoStream(myVideo, screenStream);
 
-      // Stop sharing when the user clicks "Stop sharing" or closes the screen sharing
-      screenStream.getTracks()[0].onended = () => {
+     
+      socket.emit("start-screen-share", { userId: myPeer.id });
+
+      
+      videoTrack.onended = () => {
          stopScreenSharing();
       };
    } catch (err) {
@@ -161,25 +168,30 @@ async function shareScreen() {
 }
 
 function stopScreenSharing() {
-   // Revert to the default camera stream
-   const videoTrack = myStream.getVideoTracks()[0];
-   const sender = currentPeer.getSenders().find(s => s.track.kind === videoTrack.kind);
-   sender.replaceTrack(videoTrack);
+   
+   const videoTrack = myVideoStream.getVideoTracks()[0];
+   const senders = myPeer.connection.getSenders();
+   const sender = senders.find(s => s.track.kind === 'video');
+   if (sender) {
+      sender.replaceTrack(videoTrack);
+   }
 
-   // Stop all tracks of the screen stream
    if (screenStream) {
       screenStream.getTracks().forEach(track => track.stop());
    }
+
+   socket.emit("stop-screen-share", { userId: myPeer.id });
+
+   addVideoStream(myVideo, myVideoStream);
 }
+
+
+
 
 socket.on("screen-shared", (data) => {
   console.log(`${data.userId} is sharing their screen.`);
-  // Display the shared screen (adjust the video element as needed)
-  const remoteVideo = document.getElementById("remoteVideo"); // Replace with your video element ID
-  remoteVideo.srcObject = data.screenStream;
 });
 
 socket.on("screen-share-stopped", (data) => {
   console.log(`${data.userId} stopped sharing their screen.`);
-  // Handle stopping of the shared screen (e.g., revert to their webcam)
 });
