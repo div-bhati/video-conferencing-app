@@ -1,3 +1,4 @@
+/* Default styles */
 .main {
     height: 100vh;
     display: flex;
@@ -10,7 +11,7 @@
 }
 
 .main__right {
-    flex: 0.2
+    flex: 0.2;
 }
 
 .main__videos {
@@ -77,7 +78,7 @@
     overflow-y: auto;
 }
 
-.messages{
+.messages {
     color: white;
     list-style: none;
 }
@@ -102,3 +103,49 @@
     color: #CC3B33;
 }
 
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .main__left {
+        flex: 1;
+    }
+
+    .main__right {
+        flex: 0.3;
+    }
+
+    .main__videos {
+        padding: 10px;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+        padding: 5px;
+    }
+
+    .main__controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main__controls__block {
+        margin-bottom: 10px;
+    }
+
+    .main__controls__button {
+        min-width: 60px;
+        padding: 5px;
+    }
+
+    .main__controls__button i {
+        font-size: 18px;
+    }
+
+    .main__message_container input {
+        padding: 10px;
+    }
+}
