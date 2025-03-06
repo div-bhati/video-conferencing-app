@@ -5,8 +5,8 @@ This is a **Node.js Video Conferencing Application** built as part of our colleg
 ## Project Team
 
 - **Divyansh Bhati** (Lead Developer)
-- **Farman Khan** (Backend Developer)
-- **Abhishek Jangid** (Frontend Developer)
+- **Farman Khan** (Frontend Developer)
+- **Abhishek Jangid** (Backend Developer)
 
 ## Features
 
